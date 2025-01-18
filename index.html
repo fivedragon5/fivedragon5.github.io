@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Developer Portfolio</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: Arial, sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                background-color: #1e1e2f;
+                color: #ffffff;
+            }
+
+            .container {
+                max-width: 800px;
+                text-align: left;
+            }
+
+            .typing-text {
+                font-size: 1.5rem;
+                line-height: 2rem;
+                border-right: 2px solid #ffffff;
+                white-space: nowrap;
+                overflow: hidden;
+                width: 0;
+                animation: typing 4s steps(40, end), blink-caret 0.5s step-end infinite;
+            }
+
+            @keyframes typing {
+                from {
+                    width: 0;
+                }
+                to {
+                    width: 100%;
+                }
+            }
+
+            @keyframes blink-caret {
+                from {
+                    border-right-color: #ffffff;
+                }
+                to {
+                    border-right-color: transparent;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="typing-text">
+                옹 투더 가 투더 초
+            </div>
+        </div>
+    </body>
+</html>
