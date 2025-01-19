@@ -1,61 +1,283 @@
 <!DOCTYPE html>
 <html lang="ko">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Developer Portfolio</title>
-        <style>
-            body {
-                margin: 0;
-                padding: 0;
-                font-family: Arial, sans-serif;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-                background-color: #1e1e2f;
-                color: #ffffff;
-            }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAD Portfolio</title>
+    <link rel="stylesheet" href="index.css">
 
-            .container {
-                max-width: 800px;
-                text-align: left;
-            }
+<!--    <script>-->
+<!--        document.addEventListener("DOMContentLoaded", () => {-->
+<!--            const introText = document.querySelector(".intro-text");-->
 
-            .typing-text {
-                font-size: 1.5rem;
-                line-height: 2rem;
-                border-right: 2px solid #ffffff;
-                white-space: nowrap;
-                overflow: hidden;
-                width: 0;
-                animation: typing 4s steps(40, end), blink-caret 0.5s step-end infinite;
-            }
+<!--            // 애니메이션 지속 시간 후 클래스 추가-->
+<!--            setTimeout(() => {-->
+<!--                introText.classList.add("finished");-->
+<!--            }, 2000); // `intro-typing` 애니메이션 시간(4초)과 일치-->
+<!--        });-->
+<!--    </script>-->
 
-            @keyframes typing {
-                from {
-                    width: 0;
-                }
-                to {
-                    width: 100%;
-                }
-            }
+</head>
+<body>
+<div class="right-section">
+    <div class="right-section-padding">
+        <div class="right-section-box">
 
-            @keyframes blink-caret {
-                from {
-                    border-right-color: #ffffff;
-                }
-                to {
-                    border-right-color: transparent;
-                }
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="typing-text">
-                옹 투더 가 투더 초
+            <!-- 1. 사진, 소셜 링크 및 간단 소개 -->
+            <div class="intro-section">
+                <img src="profile.jpg" alt="프로필 사진" class="profile-image">
+                <h1 class="name-title">오준용</h1>
+                <div class="intro-wrapper">
+                    <p class="intro-text">지속적인 학습과 성장에 열정이 있는 6년 차 백엔드 개발자 오준용 입니다.</p>
+                </div>
+                <div class="social-links">
+                    <a href="https://github.com/fivedragon5" target="_blank">GitHub</a>
+                </div>
             </div>
+
+            <!-- 2. 경력 -->
+            <div class="right-inner">
+                <h2 class="section-title">Experience</h2>
+
+                <div class="code-block-section">
+                    <div class="code-block-box">
+                        <div class="code-block-top">
+                            <div class="code-block-top-text">Ryencatchers <em>(2024.07 ~ 현재)</em>
+                            </div>
+                        </div>
+                        <div class="code-block-body">
+                            <div class="code-block-body-text">
+                                <div class="company-introduce">
+                                    빅데이터를 기반으로한 AI 관련 IT 회사로 도서를 추천해주는 자체 서비스 비블리를 운영 중
+                                </div>
+                                <div class="company-position">
+                                    <div class="content-header-text">포지션</div>
+                                    <ul>
+                                        <li>백엔드 개발자</li>
+                                    </ul>
+                                </div>
+                                <div class="company-project">
+                                    <details>
+                                        <summary class="content-header-text">주요 프로젝트</summary>
+                                        <ol>
+                                            <li>삼성증권 CRM 프로젝트</li>
+                                            <ul>
+                                                <li>프로젝트 개요: <br> &nbsp 고객 관리와 영업 스케줄 및 실적을 관리 통합 시스템</li>
+                                                <li>담당업무:
+                                                    <ul>
+                                                        <li>영업 활동 일정 반복 시스템 개발</li>
+                                                        <li>공통 코드 등록 및 조회 기능 공통화 개발</li>
+                                                        <li>고객 등록 시스템 개발</li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </ol>
+                                    </details>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-block-section">
+                    <div class="code-block-box">
+                        <div class="code-block-top">
+                            <div class="code-block-top-text">PATH <em>(2023.02 ~ 2024.03)</em></div>
+                        </div>
+                        <div class="code-block-body">
+                            <div class="code-block-body-text">
+                                <div class="company-introduce">
+                                    AI 에듀웨어 플랫폼 스타트업으로 1:1 온라인 수업을 제공해주는 자체 서비스 CLUS를 운영 중
+                                </div>
+                                <div class="company-position">
+                                    <div class="content-header-text">포지션</div>
+                                    <ul>
+                                        <li>백엔드 개발자</li>
+                                    </ul>
+                                </div>
+                                <div class="company-project">
+                                    <details>
+                                        <summary class="content-header-text">주요 프로젝트</summary>
+                                        <ol>
+                                            <li>LLM 기반 강사 작업시간 단축 프로젝트</li>
+                                            <ul>
+                                                <li>프로젝트 개요: <br> &nbsp 강사들의 리포트 작성 및 학생 질문 답변 작업 시간을 줄이기 위해, 대규모 언어 모델(LLM)을 활용한 자동화 시스템 개발</li>
+                                                <li>담당업무:
+                                                    <ul>
+                                                        <li>OpenAI API 연동 및 질문 자동응답 시스템 구현</li>
+                                                        <li>답변 말투 재현을 위한 데이터 분석 및 모델 커스터마이징</li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                            <br>
+                                            <li>AWS 기반 알림 시스템 프로젝트</li>
+                                            <ul>
+                                                <li>프로젝트 개요: <br> &nbsp AWS 서비스를 활용하여 DB 사용률(예: CPU 사용률)을 모니터링하고, 임계치 초과 시 Slack에 알림 메시지를 발송하는 자동화 시스템 개발</li>
+                                                <li>담당업무:
+                                                    <ul>
+                                                        <li>CloudWatch 모니터링 규칙 설정 및 임계치 알림 구성</li>
+                                                        <li>Lambda 함수 개발 및 Slack API 연동</li>
+                                                        <li>시스템 테스트 및 알림 메시지 포맷 최적화</li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                            <br>
+                                            <li>Admin 페이지 데이터 엑셀 추출 기능 개선 프로젝트</li>
+                                            <ul>
+                                                <li>프로젝트 개요: <br> &nbsp 학생 데이터의 엑셀 다운로드 기능을 개선하여 대량 데이터 처리 성능 및 안정성 향상</li>
+                                                <li>개선 내용:
+                                                    <ul>
+                                                        <li>Admin 페이지에서 이메일 주소를 입력받아 요청을 AWS SQS에 전달</li>
+                                                        <li>SQS 및 Dead Letter Queue를 활용해 비동기 처리와 안정성 확보</li>
+                                                        <li>대량 데이터를 효율적으로 처리하고, 브라우저 부하를 줄이는 방식으로 시스템 최적화</li>
+                                                    </ul>
+                                                </li>
+                                                <li>담당업무:
+                                                    <ul>
+                                                        <li>SQS와 Dead Letter Queue를 포함한 비동기 처리 구조 설계 및 구현</li>
+                                                        <li>데이터 추출 및 엑셀 파일 생성 로직 최적화</li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                            <br>
+                                            <li>학생 수업 추천 알고리즘 개발 프로젝트</li>
+                                            <ul>
+                                                <li>프로젝트 개요: <br> &nbsp 학생들의 관심사와 수강 기록 데이터를 활용하여 맞춤형 수업을 메인 페이지에 추천하는 알고리즘 개발</li>
+                                                <li>담당업무:
+                                                    <ul>
+                                                        <li>데이터 분석 및 전처리를 통한 추천 알고리즘 설계 및 최적화</li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </ol>
+                                    </details>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-block-section">
+                    <div class="code-block-box">
+                        <div class="code-block-top">
+                            <div class="code-block-top-text">Curioud <em>(2019.09 ~ 2022.12)</em></div>
+                        </div>
+                        <div class="code-block-body">
+                            <div class="code-block-body-text">
+                                <div class="company-introduce">
+                                    디지털 기반의 에듀 플랫폼으로 자체 서비스 콘텐츠 저작 도구 XELF, 교육게임 플랫폼 RAPORAPO 등을 운영 중
+                                </div>
+                                <div class="company-position">
+                                    <div class="content-header-text">포지션</div>
+                                    <ul>
+                                        <li>백엔드 리드</li>
+                                    </ul>
+                                </div>
+                                <div class="company-project">
+                                    <details>
+                                    <summary class="content-header-text">주요 프로젝트</summary>
+                                        <ol>
+                                            <li>AWS 애플리케이션 개선 프로젝트</li>
+                                            <ul>
+                                                <li>프로젝트 개요: <br> &nbsp AWS에서 관리중인 애플리케이션의 비용 최적화와 관리 효율성을 높이기 위한 개선 작업</li>
+                                                <li>개선 내용:
+                                                    <ul>
+                                                        <li>애플리케이션별 비용 분석을 통해 주요 문제점 파악</li>
+                                                        <li>하나의 Application Load Balancer(ALB)에 규칙을 설정하여 로드 밸런서를 통합</li>
+                                                        <li>비용 절감과 동시에 애플리케이션 관리 효율성 개선</li>
+                                                    </ul>
+                                                </li>
+                                                <li>담당업무:
+                                                    <ul>
+                                                        <li>비용 분석 및 개선 계획 수립</li>
+                                                        <li>ALB 통합 규칙 설계 및 구현</li>
+                                                        <li>시스템 통합 후 테스트 및 운영 안정화 작업</li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </ol>
+                                    </details>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <br>
+
+            <!-- 3. Side Project -->
+            <div class="right-inner">
+                <h2 class="section-title">Side Project</h2>
+
+                <div class="code-block-section">
+                    <div class="code-block-box">
+                        <div class="code-block-top">
+                            <div class="code-block-top-text">WEPL(웨플)</a><em> (2024.04 ~ 2024.06)</em></div>
+                        </div>
+                        <div class="code-block-body">
+                            <div class="code-block-body-text">
+                                <div class="company-introduce">
+                                    예비 신랑과 신부를 위한 일정 및 지출, 예산 관리 서비스
+                                </div>
+                                <div class="company-project">
+                                    <div class="company-position">
+                                        <div class="content-header-text">구성원</div>
+                                        <ul>
+                                            <li>기획 1명</li>
+                                            <li>디자인 1명</li>
+                                            <li>백엔드 2명</li>
+                                            <li>프론트 2명</li>
+                                        </ul>
+                                    </div>
+                                    <details>
+                                        <summary class="content-header-text">프로젝트 상세보기</summary>
+                                        <ul>
+                                            <li>주요 작업:
+                                                <ul>
+                                                    <li>백엔드와 데이터베이스 서버 인프라 설정 및 개발 환경 구축</li>
+                                                    <li>지출 항목을 관리할 수 있는 카테고리 서비스와 사용자 일정 관리 API 개발</li>
+                                                </ul>
+                                            </li>
+                                            <li>개선 사항:
+                                                <ul>
+                                                    <li>서비스 배포 환경 구축 및 자동화를 통해 동료들의 배포 시간 최소화</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </details>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+            <!-- 4. Education -->
+            <div class="right-inner">
+                <h2 class="section-title">Education</h2>
+
+                <div class="code-block-section">
+                    <div class="code-block-box">
+                        <div class="code-block-top">
+                            <div class="code-block-top-text">Acorn Academy</a><em> (2019.01 ~ 2019.06)</em></div>
+                        </div>
+                        <div class="code-block-body">
+                            <div class="code-block-body-text">
+                                <div class="company-introduce" style="margin-bottom: 0px">
+                                    JAVA 웹 개발자 과정 수료
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </body>
+    </div>
+</div>
+</body>
 </html>

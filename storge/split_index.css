@@ -1,0 +1,118 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    height: 100vh;
+    color: #ffffff;
+    background-color: #292727;
+}
+
+/* LEFT SECTION */
+
+.left-section {
+    width: 260px;
+    background-color: rgba(33, 33, 33, 0.9);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* 내용 상단 정렬 */
+    overflow-y: auto; /* 수직 스크롤 가능 */
+}
+
+.left-content h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.left-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+/* RIGHT SECTION */
+
+.right-section {
+    background-color: #292727;
+    flex: 7;
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.right-section-padding {
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.right-section-box {
+
+}
+
+.right-title {
+    font-weight: 600;
+    margin-bottom: .5rem;
+    margin-top: 1rem;
+}
+
+.right-inner {
+    max-width: 48rem;
+    align-items: flex-end;
+}
+
+.typing-text {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    border-right: 2px solid #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+    animation: typing 2s steps(40, end) forwards, blink-caret 0.5s step-end infinite;
+}
+
+.code-block-section {
+}
+
+.code-block-top {
+    border-radius: .375rem;
+    background-color: #2f2f2f;
+    padding-bottom: .5rem;
+    padding-top: .5rem;
+    padding-left: 1rem;
+}
+
+.code-block-top-text {
+    color: #b4b4b4;
+    font-size: .75rem;
+    line-height: 1rem;
+}
+
+.code-block-body {
+    background-color: #212121;
+    padding: 1rem;
+}
+
+.code-block-body-text {
+    color: #b4b4b4;
+    line-height: 1.5;
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink-caret {
+    50% {
+        border-right-color: transparent;
+    }
+    100% {
+        border-right-color: #ffffff;
+    }
+}
