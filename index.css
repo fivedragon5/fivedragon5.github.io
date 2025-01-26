@@ -145,7 +145,7 @@ body {
     }
 
     .intro-text, .social-links a {
-        font-size: 0.9rem;
+        font-size: 1.0rem;
     }
 
     .right-section-padding {
@@ -170,6 +170,38 @@ body {
         border-right-color: #ffffff;
     }
 }
+
+/* 모바일용 반응형 처리 */
+@media (max-width: 480px) {
+    .profile-image {
+        width: 60px;
+        height: 60px;
+    }
+
+    .name-title {
+        font-size: 1.2rem;
+        color: #f5f5f5;
+    }
+
+    .intro-text, .social-links a {
+        font-size: 0.7rem;
+    }
+
+    .right-section-padding {
+        padding: 5px;
+    }
+
+    /* 추가적인 모바일 전용 스타일 */
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .header {
+        text-align: center;
+    }
+}
+
 
 /* 애니메이션 종료 후 상태 */
 .intro-text.finished {
