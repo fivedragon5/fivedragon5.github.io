@@ -12,3 +12,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+// 요소를 선택
+const introText = document.querySelector('.intro-text');
+
+// 애니메이션이 끝난 후 finished 클래스를 추가하는 이벤트 리스너
+introText.addEventListener('animationend', () => {
+    introText.classList.add('finished');
+});
+

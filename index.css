@@ -38,7 +38,7 @@ body {
     border-right: 2px solid #ffffff;
     white-space: nowrap;
     overflow: hidden;
-    animation: intro-typing 2s steps(40, end) forwards, blink-caret 0.5s step-end infinite;
+    animation: intro-typing 2s steps(41, end) forwards, blink-caret 0.5s step-end infinite;
     width: 0;
     color: #b4b4b4;
 }
@@ -238,7 +238,7 @@ body.dark-mode .theme-toggle-switch::before {
         width: 0;
     }
     to {
-        width: 45ch; /* 부모 요소의 크기 기반으로 확장 */
+        width: 30em; /* 부모 요소의 크기 기반으로 확장 */
     }
 }
 
@@ -338,5 +338,4 @@ body.light-mode {
 .intro-text.finished {
     overflow: visible; /* 텍스트가 잘리지 않도록 변경 */
     border-right: none; /* 커서를 제거 */
-    animation: none; /* 애니메이션 제거 */
 }
