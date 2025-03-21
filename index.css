@@ -83,7 +83,7 @@ body {
     font-weight: 700;
 }
 
-.company-project a {
+.a-link {
     color: #ffffff;
     text-decoration: underline;
     margin: 0 0.5rem;
