@@ -59,6 +59,7 @@ body {
     font-weight: bold;
     margin-top: 2rem;
     margin-bottom: 1rem;
+    padding-bottom: 1rem;
     color: #ffffff;
 }
 
@@ -131,15 +132,17 @@ body.light-mode .a-link {
 .project-content {
 
 }
-
 .code-block-top-text {
     color: #b4b4b4;
+    font-weight: bold;
     font-size: .875rem;
     line-height: 1.25rem;
 }
 
+
 body.light-mode .code-block-top-text {
     color: #000000;
+    font-size: 1.2rem
 }
 
 .code-block-body {
