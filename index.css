@@ -378,3 +378,10 @@ body.light-mode {
     overflow: visible; /* 텍스트가 잘리지 않도록 변경 */
     border-right: none; /* 커서를 제거 */
 }
+
+/* theme-toggle 프린트 모드 숨기기 */
+@media print {
+    .theme-toggle-container {
+        display: none;
+    }
+}
