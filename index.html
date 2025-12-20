@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="index_light.css">
 </head>
-<body class="dark-mode">
+<body class="light-mode">
 <div class="right-section">
     <div class="right-section-padding">
         <div class="right-section-box">
@@ -95,13 +95,8 @@
                                     <ol>
                                         <li>삼성증권 WholeSale 프로젝트 개발에 참여</li>
                                         <ul>
-                                            <li>프로젝트 개요: <br> &nbsp 고객 관리 영업 스케줄 및 실적 관리 통합 시스템</li>
-                                            <li>담당업무:
-                                                <ul>
-                                                    <li>Knox API에서 일정 데이터 서비스 내 캘린더에 연동 구현</li>
-                                                    <li>Server to Server 방식으로 사내 UMS 서비스와 연동하여 Email 및 SMS 발송 기능 구현</li>
-                                                </ul>
-                                            </li>
+                                            <li>금융사 내부 영업 시스템 환경에서 일정 관리와 고객 알림 기능의 단절 문제를 해결하고자, 외부(Knox)·사내(UMS) 시스템과의 Server-to-Server 연동을 구현하여 영업 업무 흐름을 하나의 시스템으로 통합</li>
+                                            Skill : Java, Spring Boot, MyBatis, MySql, Knox, UMS
                                         </ul>
                                     </ol>
                                 </div>
@@ -139,53 +134,20 @@
                                     <ol>
                                         <li>LLM 기반 강사 작업시간 단축 프로젝트</li>
                                         <ul>
-                                            <li>프로젝트 개요: <br> &nbsp 강사들의 리포트 작성 및 학생 질문 답변 작업 시간을 줄이기 위해, 대규모 언어 모델(LLM)을 활용한 자동화 시스템 개발</li>
-                                            <li>담당업무:
-                                                <ul>
-                                                    <li>OpenAI API 연동 및 질문 자동응답 시스템 구현</li>
-                                                    <li>답변 말투 재현을 위한 데이터 분석 및 모델 커스터마이징</li>
-                                                </ul>
-                                            </li>
+                                            <li>교육 플랫폼 도메인에서 강사의 리포트 작성 및 Q&A 대응에 발생하는 반복 업무 문제를 해결하기 위해, OpenAI API 연동 자동응답 시스템과 답변 스타일 분석·커스터마이징을 구현하여 강사 업무 효율을 크게 개선함</li>
+                                            Skill : Python, OpenAI, LangChain, DocumentDB, Vector DB, Prompt Engineering
                                         </ul>
                                         <br>
                                         <li>AWS 기반 알림 시스템 프로젝트</li>
                                         <ul>
-                                            <li>프로젝트 개요: <br> &nbsp AWS 서비스를 활용하여 DB 사용률(예: CPU 사용률)을 모니터링하고, 임계치 초과 시 Slack에 알림 메시지를 발송하는 자동화 시스템 개발</li>
-                                            <li>담당업무:
-                                                <ul>
-                                                    <li>CloudWatch 모니터링 규칙 설정 및 임계치 알림 구성</li>
-                                                    <li>Lambda 함수 개발 및 Slack API 연동</li>
-                                                    <li>시스템 테스트 및 알림 메시지 포맷 최적화</li>
-                                                </ul>
-                                            </li>
+                                            <li>AWS 기반 인프라 환경에서 DB 리소스 사용률 초과를 사전에 감지하지 못하는 문제를 해결하기 위해, CloudWatch 모니터링과 Lambda-Slack 연동 알림 시스템을 구현하여 장애 대응 속도와 운영 안정성을 개선함</li>
+                                            Skill : AWS CloudWatch, AWS Lambda, Slack API, Monitoring, Message Formatting
                                         </ul>
                                         <br>
                                         <li>Admin 페이지 데이터 엑셀 추출 기능 개선 프로젝트</li>
                                         <ul>
-                                            <li>프로젝트 개요: <br> &nbsp 학생 데이터의 엑셀 다운로드 기능을 개선하여 대량 데이터 처리 성능 및 안정성 향상</li>
-                                            <li>담당업무:
-                                                <ul>
-                                                    <li>SQS와 Dead Letter Queue를 포함한 비동기 처리 구조 설계 및 구현</li>
-                                                    <li>데이터 추출 및 엑셀 파일 생성 로직 최적화</li>
-                                                </ul>
-                                            </li>
-                                            <li>개선 내용:
-                                                <ul>
-                                                    <li>Admin 페이지에서 이메일 주소를 입력받아 요청을 AWS SQS에 전달</li>
-                                                    <li>SQS 및 Dead Letter Queue를 활용해 비동기 처리와 안정성 확보</li>
-                                                    <li>대량 데이터를 효율적으로 처리하고, 브라우저 부하를 줄이는 방식으로 시스템 최적화</li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                        <br>
-                                        <li>학생 수업 추천 알고리즘 개발 프로젝트</li>
-                                        <ul>
-                                            <li>프로젝트 개요: <br> &nbsp 학생들의 관심사와 수강 기록 데이터를 활용하여 맞춤형 수업을 메인 페이지에 추천하는 알고리즘 개발</li>
-                                            <li>담당업무:
-                                                <ul>
-                                                    <li>데이터 분석 및 전처리를 통한 추천 알고리즘 설계 및 최적화</li>
-                                                </ul>
-                                            </li>
+                                            <li>관리자(Admin) 서비스 도메인에서 동기식 엑셀 다운로드로 인한 응답 지연 및 실패 문제를 해결하기 위해, SQS와 Dead Letter Queue 기반 비동기 처리 구조를 설계·구현하여 대량 데이터 처리와 장애 내구성을 강화함</li>
+                                            Skill : AWS SQS, DLQ, S3, Kotlin
                                         </ul>
                                     </ol>
                                 </div>
@@ -215,39 +177,8 @@
                                     <ol>
                                         <li>AWS 아키텍처 개선 프로젝트</li>
                                         <ul>
-                                            <li>프로젝트 개요: <br> &nbsp AWS에서 관리중인 애플리케이션의 비용 최적화와 관리 효율성을 높이기 위한 개선 작업</li>
-                                            <li>담당업무:
-                                                <ul>
-                                                    <li>비용 분석 및 개선 계획 수립</li>
-                                                    <li>ALB 통합 규칙 설계 및 구현</li>
-                                                    <li>시스템 통합 후 테스트 및 운영 안정화 작업</li>
-                                                </ul>
-                                            </li>
-                                            <li>개선 내용:
-                                                <ul>
-                                                    <li>애플리케이션별 비용 분석을 통해 주요 문제점 파악</li>
-                                                    <li>하나의 Application Load Balancer(ALB)에 규칙을 설정하여 로드 밸런서를 통합</li>
-                                                    <li>비용 절감과 동시에 애플리케이션 관리 효율성 개선</li>
-                                                    👉<a class="a-link" href="https://dev-code.tistory.com/7" target="_blank">자세한 개선 과정 보기</a>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                        <br>
-                                        <li>SVN 기반 형상관리 시스템의 GitLab 마이그레이션</li>
-                                        <ul>
-                                            <li>프로젝트 개요: <br> &nbsp 기존 SVN으로 운영되던 형상관리 시스템을 GitLab으로 마이그레이션</li>
-                                            <li>담당업무:
-                                                <ul>
-                                                    <li>SVN에서 GitLab으로 소스코드 및 이력 마이그레이션</li>
-                                                    <li>GitLab 브랜치 전략 및 코드리뷰 프로세스 도입</li>
-                                                </ul>
-                                            </li>
-                                            <li>개선 내용:
-                                                <ul>
-                                                    <li>브랜치 기반 협업 환경 구축으로 개발 효율 향샹</li>
-                                                    <li>배포 자동화 및 이슈 관리 통합으로 업무 프로세스 개선</li>
-                                                </ul>
-                                            </li>
+                                            <li>클라우드 인프라 도메인에서 다수 애플리케이션에 개별 ALB를 사용하며 발생하던 비용 비효율 문제를 정의하고, 단일 ALB에 라우팅 규칙을 통합하는 구조로 개선하여 비용 절감 및 관리 포인트를 단순화함</li>
+                                            Skill : AWS ALB, Elastic Beanstalk
                                         </ul>
                                     </ol>
                                 </div>
@@ -290,24 +221,12 @@
                                 </div>
                                 <div class="company-project">
                                     <div class="company-position">
-                                        <div class="content-header-text">구성원</div>
-                                        <ul>
-                                            <li>기획 1명, 백엔드 3명, 프론트 2명</li>
-                                        </ul>
                                     </div>
                                     <div class="content-header-text">프로젝트 상세보기</div>
                                     <ul>
-                                        <li>주요 작업:
-                                            <ul>
-                                                <li>Code Rabbit 도입을 통한 코드 리뷰 효율성 개선</li>
-                                                <li>Admin 로그인 기능 개발 및 인증/인가 체계 개선</li>
-                                            </ul>
-                                        </li>
-                                        <li>SKILL KEYWORD:
-                                            <ul>
-                                                <li>Java, Spring Boot, MySQL, JPA, QueryDSL, Spring Security, Code Rabbit</li>
-                                            </ul>
-                                        </li>
+                                        <li>서비스 운영·관리 도메인에서 코드 리뷰 병목과 관리자 계정 보안·남용 위험 문제를 해결하기 위해, CodeRabbit 기반 리뷰 자동화</li>
+                                        <li>관리자 로그인 2차 인증 및 Bucket4J 기반 요청 제한을 도입하여 개발 생산성과 보안·안정성을 동시에 강화함</li>
+                                        Skill : Java, Spring Boot, Spring Security, Bucket4J, PostgreSQL, JPA, QueryDSL, CodeRabbit
                                     </ul>
                                 </div>
                             </div>
@@ -327,24 +246,11 @@
                                 </div>
                                 <div class="company-project">
                                     <div class="company-position">
-                                        <div class="content-header-text">구성원</div>
-                                        <ul>
-                                            <li>기획 1명, 백엔드 3명, 프론트 1명</li>
-                                        </ul>
                                     </div>
                                     <div class="content-header-text">프로젝트 상세보기</div>
                                     <ul>
-                                        <li>주요 작업:
-                                            <ul>
-                                                <li>테스트 환경에 도움이 되는 라이브러리 도입, 설정을 개선해 테스트 효율성을 증가</li>
-                                                <li>공지사항 API 개발 및 XSS 공격 예방 코드 개발 및 적용</li>
-                                            </ul>
-                                        </li>
-                                        <li>SKILL KEYWORD:
-                                            <ul>
-                                                <li>Java, Spring Boot, MySQL, JPA, QueryDSL, Docker, grafana, flyway</li>
-                                            </ul>
-                                        </li>
+                                        <li>서비스 운영 도메인에서 반복적인 테스트 비용과 웹 보안 취약점을 줄이기 위해, 테스트 환경 개선과 XSS 공격 예방 로직을 포함한 API를 개발하여 품질과 보안 수준을 향상시킴</li>
+                                        Skill : Java, Spring Boot, PostgreSQL, JPA, Docker, CI/CD, Grafana, Prometheus, Flyway
                                     </ul>
                                 </div>
                             </div>
@@ -378,30 +284,11 @@
                                 </div>
                                 <div class="company-project">
                                     <div class="company-position">
-                                        <div class="content-header-text">구성원</div>
-                                        <ul>
-                                            <li>기획 1명, 디자인 1명, 백엔드 2명, 프론트 2명</li>
-                                        </ul>
                                     </div>
                                     <div class="content-header-text">프로젝트 상세보기</div>
                                     <ul>
-                                        <li>주요 작업:
-                                            <ul>
-                                                <li>백엔드와 데이터베이스 서버 인프라 설정 및 개발 환경 구축</li>
-                                                <li>지출 항목을 관리할 수 있는 카테고리 서비스와 사용자 일정 관리 API 개발</li>
-                                            </ul>
-                                        </li>
-                                        <li>개선 사항:
-                                            <ul>
-                                                <li>서비스 배포초기에는 수동 배포 방식으로 인해 배포 시간이 길어졌고, 팀원들의 생산성이 저하되는 문제가 있었습니다. 이를 해결하기 위해 CI/CD 자동화 프로세스를 구축하여 배포 시간을 단축했습니다.</li>
-                                                👉<a class="a-link" href="https://dev-code.tistory.com/5" target="_blank">자세한 개선 과정 보기</a>
-                                            </ul>
-                                        </li>
-                                        <li>SKILL KEYWORD:
-                                            <ul>
-                                                <li>Java, Spring Boot PostgreSQL, JPA, Docker, CI/CD</li>
-                                            </ul>
-                                        </li>
+                                        <li>신규 서비스 도메인에서 초기 인프라와 배포 체계 부재 문제를 정의하고, 백엔드·DB 인프라 구축 및 자동 배포 파이프라인을 구현하여 팀 생산성과 서비스 운영 안정성을 확보함</li>
+                                        Skill : Java, Spring Boot, PostgreSQL, JPA, Docker, CI/CD,
                                     </ul>
                                 </div>
                             </div>
