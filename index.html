@@ -1,385 +1,905 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Open Graph (SNS 공유 시 표시될 정보) -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="FAD Backend">
     <meta property="og:description" content="FAD의 백엔드 개발 - 주요 프로젝트 및 개발 경험 소개">
     <meta property="og:image" content="ogimage.png">
     <meta property="og:url" content="https://fivedragon5.github.io">
-
-    <!-- 파비콘 설정 -->
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="favicon.png">
-
     <title>FAD Portfolio</title>
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="index_light.css">
+    <style>
+        /* ============================================
+           DESIGN TOKENS — CSS Custom Properties
+        ============================================ */
+        :root {
+            /* Light mode defaults */
+            --bg-base:       #f6f8fa;
+            --bg-surface:    #ffffff;
+            --bg-subtle:     #eaeef2;
+            --border:        #d0d7de;
+            --border-muted:  #e8ecf0;
+
+            --text-primary:  #1f2328;
+            --text-secondary:#57606a;
+            --text-muted:    #8c959f;
+
+            --accent:        #0969da;
+            --accent-bg:     #ddf4ff;
+            --accent-text:   #0969da;
+
+            /* Badge palette */
+            --badge-lang-bg:   #fff3cd;
+            --badge-lang-text: #664d03;
+            --badge-fw-bg:     #d1e7dd;
+            --badge-fw-text:   #0a3622;
+            --badge-infra-bg:  #cfe2ff;
+            --badge-infra-text:#084298;
+            --badge-db-bg:     #f8d7da;
+            --badge-db-text:   #58151c;
+            --badge-etc-bg:    #e2d9f3;
+            --badge-etc-text:  #3d1a78;
+
+            --timeline-line:  #d0d7de;
+            --timeline-dot:   #0969da;
+
+            --company-badge-bg:   #f0f6ff;
+            --company-badge-text: #0969da;
+
+            --section-gap: 3.5rem;
+            --card-radius: 10px;
+            --badge-radius: 4px;
+
+            --shadow-card: 0 1px 3px rgba(0,0,0,.08), 0 0 0 1px var(--border);
+        }
+
+        [data-theme="dark"] {
+            --bg-base:       #0d1117;
+            --bg-surface:    #161b22;
+            --bg-subtle:     #21262d;
+            --border:        #30363d;
+            --border-muted:  #21262d;
+
+            --text-primary:  #e6edf3;
+            --text-secondary:#8b949e;
+            --text-muted:    #6e7681;
+
+            --accent:        #2f81f7;
+            --accent-bg:     #1f3a5f;
+            --accent-text:   #58a6ff;
+
+            --badge-lang-bg:   #3a2e00;
+            --badge-lang-text: #f0c060;
+            --badge-fw-bg:     #0f2d1e;
+            --badge-fw-text:   #56d364;
+            --badge-infra-bg:  #0d2140;
+            --badge-infra-text:#79c0ff;
+            --badge-db-bg:     #3d1a1a;
+            --badge-db-text:   #f78080;
+            --badge-etc-bg:    #2a1f40;
+            --badge-etc-text:  #c9a7ff;
+
+            --timeline-line:  #30363d;
+            --timeline-dot:   #2f81f7;
+
+            --company-badge-bg:   #1f3a5f;
+            --company-badge-text: #58a6ff;
+
+            --shadow-card: 0 1px 3px rgba(0,0,0,.4), 0 0 0 1px var(--border);
+        }
+
+        /* ============================================
+           RESET & BASE
+        ============================================ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { font-size: 16px; scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR',
+                         sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color .3s, color .3s;
+        }
+
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        ul, ol { padding-left: 1.25rem; }
+        li { margin-bottom: .35rem; }
+        li:last-child { margin-bottom: 0; }
+
+        /* ============================================
+           LAYOUT
+        ============================================ */
+        .page-wrapper {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem 5rem;
+        }
+
+        /* ============================================
+           THEME TOGGLE
+        ============================================ */
+        .theme-toggle {
+            position: fixed;
+            top: 1.25rem;
+            right: 1.25rem;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 2rem;
+            padding: .35rem .75rem;
+            cursor: pointer;
+            font-size: .8rem;
+            color: var(--text-secondary);
+            box-shadow: var(--shadow-card);
+            transition: background .3s, border-color .3s;
+            user-select: none;
+        }
+        .theme-toggle:hover { color: var(--text-primary); }
+
+        .toggle-track {
+            width: 36px; height: 20px;
+            border-radius: 10px;
+            background: var(--border);
+            position: relative;
+            transition: background .3s;
+        }
+        .toggle-track::after {
+            content: '';
+            width: 14px; height: 14px;
+            border-radius: 50%;
+            background: var(--bg-surface);
+            position: absolute;
+            top: 3px; left: 3px;
+            transition: transform .25s;
+            box-shadow: 0 1px 3px rgba(0,0,0,.25);
+        }
+        [data-theme="dark"] .toggle-track {
+            background: var(--accent);
+        }
+        [data-theme="dark"] .toggle-track::after {
+            transform: translateX(16px);
+        }
+
+        /* ============================================
+           HERO / INTRO
+        ============================================ */
+        .hero {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            padding: 2rem 0 2.5rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: var(--section-gap);
+        }
+
+        .hero-body { flex: 1; }
+
+        .hero-name {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -.5px;
+            color: var(--text-primary);
+            margin-bottom: .3rem;
+        }
+
+        .hero-role {
+            display: inline-block;
+            font-size: .85rem;
+            font-weight: 600;
+            color: var(--accent-text);
+            background: var(--accent-bg);
+            border-radius: 2rem;
+            padding: .2rem .75rem;
+            margin-bottom: 1rem;
+            letter-spacing: .02em;
+        }
+
+        .hero-summary {
+            color: var(--text-secondary);
+            font-size: .95rem;
+            max-width: 580px;
+            line-height: 1.75;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .5rem;
+        }
+
+        .hero-link {
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border);
+            border-radius: .375rem;
+            padding: .3rem .75rem;
+            font-size: .825rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: background .2s, border-color .2s;
+        }
+        .hero-link:hover {
+            background: var(--accent-bg);
+            border-color: var(--accent);
+            color: var(--accent-text);
+            text-decoration: none;
+        }
+        .hero-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+        /* ============================================
+           SECTION
+        ============================================ */
+        .section { margin-bottom: var(--section-gap); }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: .04em;
+            text-transform: uppercase;
+        }
+
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ============================================
+           TIMELINE (Experience)
+        ============================================ */
+        .timeline { display: flex; flex-direction: column; gap: 1.5rem; }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0 1.25rem;
+        }
+
+        .timeline-marker {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: .35rem;
+        }
+
+        .timeline-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: var(--timeline-dot);
+            flex-shrink: 0;
+            box-shadow: 0 0 0 3px var(--accent-bg);
+        }
+
+        .timeline-stem {
+            width: 1px;
+            flex: 1;
+            background: var(--timeline-line);
+            margin-top: .35rem;
+        }
+
+        .timeline-item:last-child .timeline-stem { display: none; }
+
+        /* ============================================
+           CARD
+        ============================================ */
+        .card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+        }
+
+        .card-header {
+            padding: .8rem 1.1rem;
+            border-bottom: 1px solid var(--border-muted);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: .5rem;
+            background: var(--bg-subtle);
+        }
+
+        .card-title {
+            font-size: .95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .card-date {
+            font-size: .78rem;
+            color: var(--text-muted);
+            font-style: normal;
+            font-family: 'SF Mono', 'Consolas', monospace;
+        }
+
+        .card-body {
+            padding: 1.1rem;
+        }
+
+        .card-description {
+            font-size: .875rem;
+            color: var(--accent-text);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            padding: .6rem .85rem;
+            background: var(--accent-bg);
+            border-radius: .375rem;
+            border-left: 3px solid var(--accent);
+            line-height: 1.6;
+        }
+
+        .card-section-label {
+            font-size: .725rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: var(--text-muted);
+            margin-bottom: .6rem;
+            margin-top: 1rem;
+        }
+        .card-section-label:first-child { margin-top: 0; }
+
+        .position-badge {
+            display: inline-block;
+            background: var(--company-badge-bg);
+            color: var(--company-badge-text);
+            font-size: .775rem;
+            font-weight: 600;
+            padding: .2rem .6rem;
+            border-radius: .375rem;
+            border: 1px solid var(--accent-bg);
+        }
+
+        /* ============================================
+           PROJECT ITEM (inside card)
+        ============================================ */
+        .project-list { display: flex; flex-direction: column; gap: .85rem; }
+
+        .project-item {
+            border: 1px solid var(--border-muted);
+            border-radius: .5rem;
+            padding: .85rem 1rem;
+            background: var(--bg-base);
+        }
+
+        .project-name {
+            font-size: .875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: .4rem;
+        }
+
+        .project-desc {
+            font-size: .825rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin-bottom: .6rem;
+        }
+
+        /* ============================================
+           BADGE SYSTEM
+        ============================================ */
+        .badge-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .35rem;
+            margin-top: .5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: .72rem;
+            font-weight: 600;
+            padding: .15rem .55rem;
+            border-radius: var(--badge-radius);
+            letter-spacing: .02em;
+            line-height: 1.5;
+        }
+
+        .badge-lang   { background: var(--badge-lang-bg);   color: var(--badge-lang-text); }
+        .badge-fw     { background: var(--badge-fw-bg);     color: var(--badge-fw-text); }
+        .badge-infra  { background: var(--badge-infra-bg);  color: var(--badge-infra-text); }
+        .badge-db     { background: var(--badge-db-bg);     color: var(--badge-db-text); }
+        .badge-etc    { background: var(--badge-etc-bg);    color: var(--badge-etc-text); }
+
+        /* ============================================
+           SIDE PROJECT — GRID CARDS
+        ============================================ */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .project-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--card-radius);
+            padding: 1.1rem;
+            display: flex;
+            flex-direction: column;
+            gap: .6rem;
+            box-shadow: var(--shadow-card);
+            transition: border-color .2s, box-shadow .2s;
+        }
+        .project-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 4px 12px rgba(0,0,0,.1), 0 0 0 1px var(--accent);
+        }
+
+        .project-card-title {
+            font-size: .9rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .5rem;
+        }
+
+        .project-card-period {
+            font-size: .72rem;
+            color: var(--text-muted);
+            font-family: 'SF Mono', 'Consolas', monospace;
+            white-space: nowrap;
+        }
+
+        .project-card-desc {
+            font-size: .82rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .project-card-points {
+            font-size: .8rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        .project-card-link {
+            font-size: .78rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* ============================================
+           EDUCATION
+        ============================================ */
+        .edu-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--card-radius);
+            padding: 1.1rem;
+            box-shadow: var(--shadow-card);
+        }
+
+        .edu-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: .4rem;
+            margin-bottom: .75rem;
+        }
+
+        .edu-title {
+            font-size: .95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .edu-period {
+            font-size: .78rem;
+            color: var(--text-muted);
+            font-family: 'SF Mono', 'Consolas', monospace;
+        }
+
+        .edu-desc {
+            font-size: .825rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        /* ============================================
+           RESPONSIVE
+        ============================================ */
+        @media (max-width: 600px) {
+            .page-wrapper { padding: 1.5rem 1rem 4rem; }
+            .hero { flex-direction: column; gap: 1rem; padding: 1.5rem 0 2rem; }
+            .hero-name { font-size: 1.6rem; }
+            .project-grid { grid-template-columns: 1fr; }
+            .theme-toggle .toggle-label { display: none; }
+            .card-header { flex-direction: column; align-items: flex-start; }
+        }
+
+        @media print {
+            .theme-toggle { display: none; }
+        }
+    </style>
 </head>
-<body class="light-mode">
-<div class="right-section">
-    <div class="right-section-padding">
-        <div class="right-section-box">
+<body>
 
-            <div id="theme-toggle" class="theme-toggle-container">
-                <span class="theme-toggle-label theme-icon">🌙</span>
-                <div class="theme-toggle-switch"></div>
-                <span class="theme-toggle-label theme-icon">🌞</span>
+<!-- Theme Toggle -->
+<button class="theme-toggle" id="themeToggle" aria-label="테마 전환">
+    <span class="toggle-label">🌙</span>
+    <div class="toggle-track"></div>
+    <span class="toggle-label">☀️</span>
+</button>
+
+<div class="page-wrapper">
+
+    <!-- ================================================
+         HERO
+    ================================================ -->
+    <header class="hero">
+        <div class="hero-body">
+            <h1 class="hero-name">오준용</h1>
+            <span class="hero-role">Backend Engineer</span>
+            <p class="hero-summary">
+                안정적이고 효율적인 서비스 운영을 추구하며, 근본적인 문제 해결과 비용 절감,
+                운영 효율성 향상을 위해 항상 <em>'왜?'</em>라는 질문을 던지며 시스템의 본질을 깊이 고민합니다.
+                사용자 중심의 완성도 높은 경험을 구현하고, 팀과 조직에 즉시 기여할 준비가 되어 있습니다.
+            </p>
+            <div class="hero-links">
+                <a class="hero-link" href="https://github.com/fivedragon5" target="_blank">
+                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                    GitHub
+                </a>
+                <a class="hero-link" href="https://dev-code.tistory.com/" target="_blank">
+                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75zm7.251 10.324l.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574zM8.755 4.75l-.004 7.322a3.752 3.752 0 011.992-.572H14.5v-9h-3.495a2.25 2.25 0 00-2.25 2.25z"/></svg>
+                    Blog
+                </a>
             </div>
-
-            <!-- 1. 사진, 소셜 링크 및 간단 소개 -->
-            <div class="intro-section">
-                <h1 class="name-title">오준용</h1>
-                <div class="social-links">
-                    <a href="https://github.com/fivedragon5" target="_blank">GitHub</a>
-                    <a href="https://dev-code.tistory.com/" target="_blank">Blog</a>
-                </div>
-            </div>
-
-            <div class="right-inner">
-                <!-- 소개 -->
-                <h2 class="section-title">Introduce</h2>
-
-                <div class="code-block-section">
-                    <div class="code-block-box">
-                        <div class="code-block-top">
-                            <div class="code-block-top-text">Backend Enginner</div>
-                        </div>
-                        <div class="code-block-body">
-                            <div class="code-block-body-text">
-                                <div class="company-introduce">
-                                    실무 역량을 갖춘 준비된 개발자
-                                </div>
-                                <div class="company-position">
-                                    <ul>
-                                        안정적이고 효율적인 서비스 운영을 추구 <br>
-                                        근본적인 문제 해결과 비용 절감, 운영 효율성 향상을 위해 항상 '왜?'라는 질문을 던지며 시스템의 본질을 깊이 고민 <br>
-                                        사용자 중심의 완성도 높은 경험을 구현하는 데 집중하여 팀과 조직에 즉시 기여할 준비가 되어 있음
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <br>
-            <br>
-
-            <div class="right-inner">
-                <!-- 2. 경력 -->
-                <h2 class="section-title">Experience</h2>
-
-                <div class="code-block-section">
-                    <div class="code-block-box">
-                        <div class="code-block-top">
-                            <div class="code-block-top-text">Ryencatchers <em>(2024.07 ~ 2025.03)</em>
-                            </div>
-                        </div>
-                        <div class="code-block-body">
-                            <div class="code-block-body-text">
-                                <div class="company-introduce">
-                                    빅데이터를 기반으로한 AI 관련 IT 회사로 도서를 추천해주는 자체 서비스 비블리를 운영 중
-                                </div>
-                                <div class="company-position">
-                                    <div class="content-header-text">포지션</div>
-                                    <ul>
-                                        <li>Backend Enginner</li>
-                                    </ul>
-                                </div>
-                                <div class="company-project">
-                                    <div class="content-header-text">주요 프로젝트</div>
-                                    <ol>
-                                        <li>삼성증권 WholeSale 프로젝트 개발에 참여</li>
-                                        <ul>
-                                            <li>금융사 내부 영업 시스템 환경에서 일정 관리와 고객 알림 기능의 단절 문제를 해결하고자, 외부(Knox)·사내(UMS) 시스템과의 Server-to-Server 연동을 구현하여 영업 업무 흐름을 하나의 시스템으로 통합</li>
-                                            Skill : Java, Spring Boot, MyBatis, MySql, Knox, UMS
-                                        </ul>
-                                    </ol>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <div class="code-block-section">
-                    <div class="code-block-box">
-                        <div class="code-block-top">
-                            <div class="code-block-top-text">PATH <em>(2023.02 ~ 2024.03)</em></div>
-                        </div>
-                        <div class="code-block-body">
-                            <div class="code-block-body-text">
-                                <div class="company-introduce">
-                                    AI 에듀웨어 플랫폼 스타트업으로 1:1 온라인 수업을 제공해주는 자체 서비스 CLUS를 운영 중
-                                </div>
-                                <div class="company-position">
-                                    <div class="content-header-text">포지션</div>
-                                    <ul>
-                                        <li>Backend Enginner</li>
-                                    </ul>
-                                </div>
-                                <div class="company-project">
-                                    <div class="content-header-text">주요 프로젝트</div>
-                                    <ol>
-                                        <li>LLM 기반 강사 작업시간 단축 프로젝트</li>
-                                        <ul>
-                                            <li>교육 플랫폼 도메인에서 강사의 리포트 작성 및 Q&A 대응에 발생하는 반복 업무 문제를 해결하기 위해, OpenAI API 연동 자동응답 시스템과 답변 스타일 분석·커스터마이징을 구현하여 강사 업무 효율을 크게 개선함</li>
-                                            Skill : Python, OpenAI, LangChain, DocumentDB, Vector DB, Prompt Engineering
-                                        </ul>
-                                        <br>
-                                        <li>AWS 기반 알림 시스템 프로젝트</li>
-                                        <ul>
-                                            <li>AWS 기반 인프라 환경에서 DB 리소스 사용률 초과를 사전에 감지하지 못하는 문제를 해결하기 위해, CloudWatch 모니터링과 Lambda-Slack 연동 알림 시스템을 구현하여 장애 대응 속도와 운영 안정성을 개선함</li>
-                                            Skill : AWS CloudWatch, AWS Lambda, Slack API, Monitoring, Message Formatting
-                                        </ul>
-                                        <br>
-                                        <li>Admin 페이지 데이터 엑셀 추출 기능 개선 프로젝트</li>
-                                        <ul>
-                                            <li>관리자(Admin) 서비스 도메인에서 동기식 엑셀 다운로드로 인한 응답 지연 및 실패 문제를 해결하기 위해, SQS와 Dead Letter Queue 기반 비동기 처리 구조를 설계·구현하여 대량 데이터 처리와 장애 내구성을 강화함</li>
-                                            Skill : AWS SQS, DLQ, S3, Kotlin
-                                        </ul>
-                                    </ol>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <div class="code-block-section">
-                    <div class="code-block-box">
-                        <div class="code-block-top">
-                            <div class="code-block-top-text">Curioud <em>(2019.09 ~ 2022.12)</em></div>
-                        </div>
-                        <div class="code-block-body">
-                            <div class="code-block-body-text">
-                                <div class="company-introduce">
-                                    디지털 기반의 에듀 플랫폼으로 자체 서비스 콘텐츠 저작 도구 XELF, 교육게임 플랫폼 RAPORAPO 등을 운영 중
-                                </div>
-                                <div class="company-position">
-                                    <div class="content-header-text">포지션</div>
-                                    <ul>
-                                        <li>Backend Lead</li>
-                                    </ul>
-                                </div>
-                                <div class="company-project">
-                                    <div class="content-header-text">주요 프로젝트</div>
-                                    <ol>
-                                        <li>AWS 아키텍처 개선 프로젝트</li>
-                                        <ul>
-                                            <li>클라우드 인프라 도메인에서 다수 애플리케이션에 개별 ALB를 사용하며 발생하던 비용 비효율 문제를 정의하고, 단일 ALB에 라우팅 규칙을 통합하는 구조로 개선하여 비용 절감 및 관리 포인트를 단순화함</li>
-                                            Skill : AWS ALB, Elastic Beanstalk
-                                        </ul>
-                                    </ol>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-
-            <!-- 3. Side Project -->
-            <div class="right-inner">
-                <h2 class="section-title">Side Project</h2>
-                <div class="code-block-section">
-                    <div class="code-block-box">
-                        <div class="code-block-top">
-                            <div class="code-block-top-text">OH-CHUNG</a><em> (2026.01 ~ )</em></div>
-                        </div>
-                        <div class="code-block-body">
-                            <div class="code-block-body-text">
-                                <div class="company-introduce">
-                                    LLM 기반 Vibe Coding을 통해 기획부터 결제 시스템 연동까지 빠르게 구현한 모바일 청첩장 제작 플랫폼
-                                </div>
-                                <div class="company-project">
-                                    <div class="company-position">
-                                    </div>
-                                    <ul>
-                                        Skill : Kotlin, Spring Boot, PostgreSQL, JPA, Docker
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="code-block-section">
-                    <div class="code-block-box">
-                        <div class="code-block-top">
-                            <div class="code-block-top-text">Ject<em> (2025.08 ~ ing)</em></div>
-                        </div>
-                        <div class="code-block-body">
-                            <div class="code-block-body-text">
-                                <div class="company-introduce">
-                                    젝트(Ject)는 IT 사이드 프로젝트 동아리로 다양한 포지션의 멤버들과 협업해서 프로젝트에 참여하고 서비스를 만드는 동아리 👉<a class="a-link" href="https://ject.kr" target="_blank">서비스 바로가기</a>
-                                </div>
-                                <div class="company-project">
-                                    <div class="company-position">
-                                    </div>
-                                    <ul>
-                                        <li>알림 시스템을 Slack에서 Discord로 전환하고 Event-driven 비동기 구조로 리디자인하여 모듈 디커플링 및 시스템 확장성 향상</li>
-                                        <li>관리자 로그인 2차 인증 및 Bucket4J 기반 요청 제한을 도입하여 개발 생산성과 보안·안정성을 동시에 강화함</li>
-                                        Skill : Java, Spring Boot, Spring Security, Event-Driven, Bucket4J, PostgreSQL, JPA, QueryDSL, CodeRabbit
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="code-block-section">
-                    <div class="code-block-box">
-                        <div class="code-block-top">
-                            <div class="code-block-top-text">Matchday-Planner</a><em> (2025.07 ~ 2025.09)</em></div>
-                        </div>
-                        <div class="code-block-body">
-                            <div class="code-block-body-text">
-                                <div class="company-introduce">
-                                    최소한의 설정으로 매치를 생성하고, 기록해주는 서비스 👉<a class="a-link" href="https://matchday-planner.com/" target="_blank">서비스 바로가기</a>
-                                </div>
-                                <div class="company-project">
-                                    <div class="company-position">
-                                    </div>
-                                    <ul>
-                                        <li>서비스 운영 도메인에서 반복적인 테스트 비용과 웹 보안 취약점을 줄이기 위해, 테스트 환경 개선과 XSS 공격 예방 로직을 포함한 API를 개발하여 품질과 보안 수준을 향상시킴</li>
-                                        Skill : Java, Spring Boot, PostgreSQL, JPA, Docker, CI/CD, Grafana, Prometheus, Flyway
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-
-                <div class="code-block-section">
-                    <div class="code-block-box">
-                        <div class="code-block-top">
-                            <div class="code-block-top-text">WEPL(웨플)</a><em> (2024.04 ~ 2024.06)</em></div>
-                        </div>
-                        <div class="code-block-body">
-                            <div class="code-block-body-text">
-                                <div class="company-introduce">
-                                    예비 신랑과 신부를 위한 일정 및 지출, 예산 관리 서비스 👉<a class="a-link" href="https://polydactyl-geography-3a9.notion.site/1bdff5134c1580488d70d1d63190a694?pvs=74" target="_blank">서비스 소개 바로가기</a>
-                                </div>
-                                <div class="company-project">
-                                    <div class="company-position">
-                                    </div>
-                                    <ul>
-                                        <li>신규 서비스 도메인에서 초기 인프라와 배포 체계 부재 문제를 정의하고, 백엔드·DB 인프라 구축 및 자동 배포 파이프라인을 구현하여 팀 생산성과 서비스 운영 안정성을 확보함</li>
-                                        Skill : Java, Spring Boot, PostgreSQL, JPA, Docker, CI/CD,
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="code-block-section">
-                    <div class="code-block-box">
-                        <div class="code-block-top">
-                            <div class="code-block-top-text">Fruit Box Auto</div>
-                        </div>
-                        <div class="code-block-body">
-                            <div class="code-block-body-text">
-                                <div class="company-introduce">
-                                    Fruit Box Auto(사과게임) 자동 플레이 프로그램 개발 👉<a class="a-link" href="https://www.gamesaien.com/game/fruit_box_a/" target="_blank">사과게임 바로가기</a>
-                                </div>
-                                <div class="company-project">
-                                    <ul>
-                                        <li>주요 작업:
-                                            <ul>
-                                                <li>게임 화면의 사과 숫자를 인식하기 위한 OCR(Optical Character Recognition) 기능 개발 (tesseract, opencv-python 활용)</li>
-                                                <li>스크린샷 캡처 및 이미지 전처리 로직 구현</li>
-                                                <li>인식된 숫자를 기반으로 합이 10이 되는 사과 조합 탐색 알고리즘 설계 및 구현</li>
-                                            </ul>
-                                        </li>
-                                        <li>개선 사항:
-                                            <ul>
-                                                <li>OCR 및 이미지 인식 정확도 개선으로 게임 진행의 신뢰성 확보</li>
-                                                <li>사과 탬색 알고리즘 개선</li>
-                                                👉<a class="a-link" href="https://dev-code.tistory.com/10" target="_blank">개발 과정 살펴보기</a>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <br><br><br><br><br><br><br><br><br><br><br><br>
-
-            <!-- 5. Education -->
-            <div class="right-inner">
-                <h2 class="section-title">Education</h2>
-
-                <div class="code-block-section">
-                    <div class="code-block-box">
-                        <div class="code-block-top">
-                            <div class="code-block-top-text">Acorn Academy<em> (2019.01 ~ 2019.06)</em></div>
-                        </div>
-                        <div class="code-block-body">
-                            <div class="code-block-body-text">
-                                <div class="company-introduce" style="margin-bottom: 0px">
-                                    Java, Spring Boot 기초 교육
-                                </div>
-                                <ul>
-                                    <li>Java, Spring Boot 기초 과정을 수료하며 웹 개발 기본을 다졌습니다.</li>
-                                    <li>헬스장 PT 트레이너 관리 서비스 팀 프로젝트에서 팀장을 맡아 프로젝트를 성공적으로 이끌었습니다.</li>
-                                    <li>팀원과의 협업, 문제 해결, 일정 관리 등 리더십 역량을 키우고 실무 경험을 쌓았습니다.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
-    </div>
-</div>
-<script src="index.js"></script>
+    </header>
+
+    <!-- ================================================
+         EXPERIENCE
+    ================================================ -->
+    <section class="section">
+        <div class="section-header">
+            <h2 class="section-title">Experience</h2>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="timeline">
+
+            <!-- Ryencatchers -->
+            <div class="timeline-item">
+                <div class="timeline-marker">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-stem"></div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Ryencatchers</span>
+                        <span class="card-date">2024.07 — 2025.03</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">빅데이터를 기반으로 한 AI IT 회사 · 도서 추천 서비스 <strong>비블리</strong> 운영</p>
+
+                        <div class="card-section-label">포지션</div>
+                        <span class="position-badge">Backend Engineer</span>
+
+                        <div class="card-section-label" style="margin-top:1rem;">주요 프로젝트</div>
+                        <div class="project-list">
+                            <div class="project-item">
+                                <div class="project-name">삼성증권 WholeSale 프로젝트</div>
+                                <p class="project-desc">
+                                    금융사 내부 영업 시스템에서 일정 관리·고객 알림 기능의 단절 문제를 해결하기 위해, 외부(Knox)·사내(UMS) 시스템과의
+                                    Server-to-Server 연동을 구현하여 영업 업무 흐름을 하나의 시스템으로 통합
+                                </p>
+                                <div class="badge-group">
+                                    <span class="badge badge-lang">Java</span>
+                                    <span class="badge badge-fw">Spring Boot</span>
+                                    <span class="badge badge-fw">MyBatis</span>
+                                    <span class="badge badge-db">MySQL</span>
+                                    <span class="badge badge-etc">Knox</span>
+                                    <span class="badge badge-etc">UMS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PATH -->
+            <div class="timeline-item">
+                <div class="timeline-marker">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-stem"></div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">PATH</span>
+                        <span class="card-date">2023.02 — 2024.03</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">AI 에듀웨어 플랫폼 스타트업 · 1:1 온라인 수업 서비스 <strong>CLUS</strong> 운영</p>
+
+                        <div class="card-section-label">포지션</div>
+                        <span class="position-badge">Backend Engineer</span>
+
+                        <div class="card-section-label" style="margin-top:1rem;">주요 프로젝트</div>
+                        <div class="project-list">
+                            <div class="project-item">
+                                <div class="project-name">LLM 기반 강사 업무 자동화</div>
+                                <p class="project-desc">
+                                    강사의 리포트 작성 및 Q&A 대응에 발생하는 반복 업무 문제를 해결하기 위해
+                                    OpenAI API 연동 자동응답 시스템과 답변 스타일 분석·커스터마이징을 구현하여 업무 효율 대폭 개선
+                                </p>
+                                <div class="badge-group">
+                                    <span class="badge badge-lang">Python</span>
+                                    <span class="badge badge-fw">LangChain</span>
+                                    <span class="badge badge-etc">OpenAI API</span>
+                                    <span class="badge badge-db">DocumentDB</span>
+                                    <span class="badge badge-db">Vector DB</span>
+                                    <span class="badge badge-etc">Prompt Engineering</span>
+                                </div>
+                            </div>
+                            <div class="project-item">
+                                <div class="project-name">AWS 기반 알림 시스템 구축</div>
+                                <p class="project-desc">
+                                    DB 리소스 사용률 초과를 사전에 감지하지 못하는 문제를 해결하기 위해
+                                    CloudWatch 모니터링과 Lambda-Slack 연동 알림 시스템을 구현하여 장애 대응 속도·운영 안정성 개선
+                                </p>
+                                <div class="badge-group">
+                                    <span class="badge badge-infra">AWS CloudWatch</span>
+                                    <span class="badge badge-infra">AWS Lambda</span>
+                                    <span class="badge badge-etc">Slack API</span>
+                                    <span class="badge badge-etc">Monitoring</span>
+                                </div>
+                            </div>
+                            <div class="project-item">
+                                <div class="project-name">Admin 엑셀 추출 비동기 개선</div>
+                                <p class="project-desc">
+                                    동기식 엑셀 다운로드로 인한 응답 지연·실패 문제를 해결하기 위해
+                                    SQS와 Dead Letter Queue 기반 비동기 처리 구조를 설계·구현하여 대량 데이터 처리와 장애 내구성 강화
+                                </p>
+                                <div class="badge-group">
+                                    <span class="badge badge-lang">Kotlin</span>
+                                    <span class="badge badge-infra">AWS SQS</span>
+                                    <span class="badge badge-infra">DLQ</span>
+                                    <span class="badge badge-infra">S3</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Curioud -->
+            <div class="timeline-item">
+                <div class="timeline-marker">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-stem"></div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Curioud</span>
+                        <span class="card-date">2019.09 — 2022.12</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">디지털 에듀 플랫폼 · 콘텐츠 저작 도구 <strong>XELF</strong>, 교육게임 플랫폼 <strong>RAPORAPO</strong> 운영</p>
+
+                        <div class="card-section-label">포지션</div>
+                        <span class="position-badge">Backend Lead</span>
+
+                        <div class="card-section-label" style="margin-top:1rem;">주요 프로젝트</div>
+                        <div class="project-list">
+                            <div class="project-item">
+                                <div class="project-name">AWS 아키텍처 비용 최적화</div>
+                                <p class="project-desc">
+                                    다수 애플리케이션에 개별 ALB를 사용하며 발생하던 비용 비효율 문제를 정의하고,
+                                    단일 ALB에 라우팅 규칙을 통합하는 구조로 개선하여 비용 절감 및 관리 포인트 단순화
+                                </p>
+                                <div class="badge-group">
+                                    <span class="badge badge-infra">AWS ALB</span>
+                                    <span class="badge badge-infra">Elastic Beanstalk</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /timeline -->
+    </section>
+
+    <!-- ================================================
+         SIDE PROJECT
+    ================================================ -->
+    <section class="section">
+        <div class="section-header">
+            <h2 class="section-title">Side Project</h2>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="project-grid">
+
+            <!-- OH-CHUNG -->
+            <div class="project-card">
+                <div class="project-card-title">
+                    오늘의 청첩장
+                    <span class="project-card-period">2026.01 ~</span>
+                </div>
+                <p class="project-card-desc">LLM 기반 Vibe Coding으로 기획부터, 배포까지 빠르게 구현한 모바일 청첩장 제작 플랫폼</p>
+                <ul class="project-card-points">
+                    <li>Claude, Skill 기반 AI 워크플로우를 활용해 요구사항 정리, 화면/기능 설계, 구현 생산성 향상</li>
+                    <li>청첩장 생성, 일정/장소 안내, 계좌/갤러리 등 실사용 기능을 중심으로 MVP 설계 및 개발</li>
+                    <li>결제 시스템 연동과 운영 관점을 함께 고려해 실제 서비스 수준으로 확장</li>
+                    <li>빠른 프로토타이핑 이후 서비스 운영을 고려해 백엔드 구조와 데이터 모델 정리</li>
+                </ul>
+                <div class="badge-group">
+                    <span class="badge badge-lang">Kotlin</span>
+                    <span class="badge badge-fw">Spring Boot</span>
+                    <span class="badge badge-db">PostgreSQL</span>
+                    <span class="badge badge-fw">JPA</span>
+                    <span class="badge badge-infra">Docker</span>
+                    <span class="badge badge-etc">Claude</span>
+                    <span class="badge badge-etc">Codex</span>
+                    <span class="badge badge-etc">AI Workflow</span>
+                    <span class="badge badge-etc">Prompt Engineering</span>
+                </div>
+            </div>
+
+            <!-- Ject -->
+            <div class="project-card">
+                <div class="project-card-title">
+                    Ject
+                    <span class="project-card-period">2025.08 ~ ing</span>
+                </div>
+                <p class="project-card-desc">IT 사이드 프로젝트 동아리 — 다양한 포지션 멤버들과 협업하는 서비스 개발 동아리</p>
+                <ul class="project-card-points">
+                    <li>알림 시스템을 Slack → Discord 전환, Event-driven 비동기 구조로 리디자인하여 모듈 디커플링 및 확장성 향상</li>
+                    <li>관리자 로그인 2차 인증 및 Bucket4J 기반 요청 제한 도입으로 보안·안정성 강화</li>
+                </ul>
+                <div class="badge-group">
+                    <span class="badge badge-lang">Java</span>
+                    <span class="badge badge-fw">Spring Boot</span>
+                    <span class="badge badge-fw">Spring Security</span>
+                    <span class="badge badge-fw">Event-Driven</span>
+                    <span class="badge badge-etc">Bucket4J</span>
+                    <span class="badge badge-db">PostgreSQL</span>
+                    <span class="badge badge-fw">JPA</span>
+                    <span class="badge badge-fw">QueryDSL</span>
+                </div>
+                <a class="project-card-link" href="https://ject.kr" target="_blank">서비스 바로가기 →</a>
+            </div>
+
+            <!-- Matchday-Planner -->
+            <div class="project-card">
+                <div class="project-card-title">
+                    Matchday-Planner
+                    <span class="project-card-period">2025.07 — 2025.09</span>
+                </div>
+                <p class="project-card-desc">최소한의 설정으로 매치를 생성하고 기록해주는 서비스</p>
+                <ul class="project-card-points">
+                    <li>반복적인 테스트 비용과 웹 보안 취약점 감소를 위한 테스트 환경 개선 및 XSS 예방 API 개발</li>
+                </ul>
+                <div class="badge-group">
+                    <span class="badge badge-lang">Java</span>
+                    <span class="badge badge-fw">Spring Boot</span>
+                    <span class="badge badge-db">PostgreSQL</span>
+                    <span class="badge badge-fw">JPA</span>
+                    <span class="badge badge-infra">Docker</span>
+                    <span class="badge badge-infra">CI/CD</span>
+                    <span class="badge badge-infra">Grafana</span>
+                    <span class="badge badge-infra">Prometheus</span>
+                    <span class="badge badge-etc">Flyway</span>
+                </div>
+                <a class="project-card-link" href="https://matchday-planner.com/" target="_blank">서비스 바로가기 →</a>
+            </div>
+
+            <!-- WEPL -->
+            <div class="project-card">
+                <div class="project-card-title">
+                    WEPL (웨플)
+                    <span class="project-card-period">2024.04 — 2024.06</span>
+                </div>
+                <p class="project-card-desc">예비 신랑·신부를 위한 일정 및 지출·예산 관리 서비스</p>
+                <ul class="project-card-points">
+                    <li>초기 인프라·배포 체계 부재 문제를 정의하고 백엔드·DB 인프라 구축 및 자동 배포 파이프라인 구현</li>
+                </ul>
+                <div class="badge-group">
+                    <span class="badge badge-lang">Java</span>
+                    <span class="badge badge-fw">Spring Boot</span>
+                    <span class="badge badge-db">PostgreSQL</span>
+                    <span class="badge badge-fw">JPA</span>
+                    <span class="badge badge-infra">Docker</span>
+                    <span class="badge badge-infra">CI/CD</span>
+                </div>
+                <a class="project-card-link" href="https://polydactyl-geography-3a9.notion.site/1bdff5134c1580488d70d1d63190a694?pvs=74" target="_blank">서비스 소개 바로가기 →</a>
+            </div>
+
+            <!-- Fruit Box Auto -->
+            <div class="project-card">
+                <div class="project-card-title">
+                    Fruit Box Auto
+                    <span class="project-card-period">사이드</span>
+                </div>
+                <p class="project-card-desc">사과게임 자동 플레이 프로그램 — OCR 기반 숫자 인식과 탐색 알고리즘 구현</p>
+                <ul class="project-card-points">
+                    <li>tesseract + opencv-python 활용 OCR 기능 및 이미지 전처리 구현</li>
+                    <li>합이 10이 되는 사과 조합 탐색 알고리즘 설계·개선</li>
+                </ul>
+                <div class="badge-group">
+                    <span class="badge badge-lang">Python</span>
+                    <span class="badge badge-etc">OpenCV</span>
+                    <span class="badge badge-etc">Tesseract</span>
+                </div>
+                <a class="project-card-link" href="https://dev-code.tistory.com/10" target="_blank">개발 과정 살펴보기 →</a>
+            </div>
+
+        </div><!-- /project-grid -->
+    </section>
+
+    <!-- ================================================
+         EDUCATION
+    ================================================ -->
+    <section class="section">
+        <div class="section-header">
+            <h2 class="section-title">Education</h2>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="edu-card">
+            <div class="edu-header">
+                <span class="edu-title">Acorn Academy</span>
+                <span class="edu-period">2019.01 — 2019.06</span>
+            </div>
+            <div class="badge-group" style="margin-bottom:.75rem;">
+                <span class="badge badge-lang">Java</span>
+                <span class="badge badge-fw">Spring Boot</span>
+            </div>
+            <div class="edu-desc">
+                <ul>
+                    <li>Java, Spring Boot 기초 과정 수료를 통해 웹 개발 기본 역량 확립</li>
+                    <li>헬스장 PT 트레이너 관리 서비스 팀 프로젝트에서 팀장을 맡아 프로젝트 성공적으로 완수</li>
+                    <li>팀원 협업, 문제 해결, 일정 관리 등 리더십 역량 심화</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+</div><!-- /page-wrapper -->
+
+<script>
+    const html = document.documentElement;
+    const btn  = document.getElementById('themeToggle');
+    const saved = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', saved);
+
+    btn.addEventListener('click', () => {
+        const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+    });
+</script>
 </body>
 </html>
