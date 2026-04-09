@@ -415,7 +415,7 @@ a { text-decoration: none; color: inherit; }
 .timeline::before {
   content: '';
   position: absolute;
-  left: 160px;
+  left: 174px;
   top: 8px; bottom: 8px;
   width: 1px;
   background: var(--gray-200);
@@ -423,14 +423,15 @@ a { text-decoration: none; color: inherit; }
 
 .tl-item {
   display: grid;
-  grid-template-columns: 160px 20px 1fr;
+  grid-template-columns: 160px 1fr;
   align-items: start;
-  gap: 0 20px;
+  gap: 0 28px;
 }
 
 .tl-left {
   text-align: right;
-  padding-top: 30px;
+  padding-top: 26px;
+  padding-right: 0;
 }
 
 .tl-period {
@@ -441,15 +442,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 .tl-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--white);
-  border: 2px solid var(--gray-900);
-  margin-top: 34px;
-  flex-shrink: 0;
-  position: relative;
-  z-index: 1;
+  display: none;
 }
 
 .tl-right { flex: 1; }
@@ -716,9 +709,8 @@ a { text-decoration: none; color: inherit; }
   .about-grid { grid-template-columns: 1fr; gap: 32px; }
 
   .timeline::before { left: 0; }
-  .tl-item { grid-template-columns: 12px 1fr; gap: 0 16px; }
+  .tl-item { grid-template-columns: 1fr; gap: 0; }
   .tl-left { display: none; }
-  .tl-dot { margin-top: 28px; }
 
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .stat-item:nth-child(3)::before { display: none; }
