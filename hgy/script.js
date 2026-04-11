@@ -4,6 +4,13 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 40);
 }, { passive: true });
 
+// Discourage casual copying / dragging on the portfolio page.
+['contextmenu', 'selectstart', 'dragstart', 'copy'].forEach(eventName => {
+  document.addEventListener(eventName, event => {
+    event.preventDefault();
+  });
+});
+
 // Counter animation
 function animateCounter(el) {
   const target = parseInt(el.dataset.target, 10);
