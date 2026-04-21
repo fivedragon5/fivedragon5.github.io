@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="웨딩 촬영 시안 확인용 반응형 레퍼런스 페이지">
+    <title>Flow Studio | 웨딩 촬영 시안</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn-dev.ohchung.com">
+    <link rel="icon" type="image/jpeg" href="./favicon.jpg">
+    <link rel="apple-touch-icon" href="./favicon.jpg">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="page-shell">
+        <header class="hero">
+            <div class="hero-copy">
+                <p class="hero-kicker">Flow Studio</p>
+                <p class="hero-subtitle">스튜디오 촬영 시안</p>
+                <h1>오준용 한가영</h1>
+                <p class="hero-date">2026년 4월 15일 10:00</p>
+            </div>
+        </header>
+
+        <div class="sticky-tools">
+            <nav class="category-nav" aria-label="카테고리 이동">
+                <div class="category-scroll" id="categoryNav"></div>
+            </nav>
+
+            <div class="view-switch" role="group" aria-label="보기 모드 전환">
+                <button type="button" class="view-button is-active" data-view="grid" aria-pressed="true">Grid</button>
+                <button type="button" class="view-button" data-view="list" aria-pressed="false">List</button>
+            </div>
+        </div>
+
+        <main class="content" id="content"></main>
+    </div>
+
+    <nav class="bottom-nav" aria-label="빠른 이동">
+        <button type="button" class="bottom-nav-button" data-bottom-action="top">Top</button>
+        <button type="button" class="bottom-nav-button" data-bottom-action="toggle">Grid</button>
+        <button type="button" class="bottom-nav-button" data-bottom-action="current">현재 섹션</button>
+    </nav>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true" hidden>
+        <div class="lightbox-backdrop" data-close-lightbox></div>
+        <div class="lightbox-dialog" role="dialog" aria-modal="true" aria-label="이미지 확대 보기">
+            <div class="lightbox-topbar">
+                <div class="lightbox-caption">
+                    <p class="lightbox-category" id="lightboxCategory"></p>
+                    <p class="lightbox-title" id="lightboxTitle"></p>
+                </div>
+                <div class="lightbox-actions">
+                    <button type="button" class="lightbox-action" id="zoomOutButton" aria-label="축소">-</button>
+                    <button type="button" class="lightbox-action" id="zoomInButton" aria-label="확대">+</button>
+                    <button type="button" class="lightbox-action" id="closeLightbox" aria-label="닫기">닫기</button>
+                </div>
+            </div>
+
+            <div class="lightbox-viewport" id="lightboxViewport">
+                <img id="lightboxImage" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div class="slider-modal" id="sliderModal" aria-hidden="true" hidden>
+        <div class="slider-backdrop" data-close-slider></div>
+        <div class="slider-dialog" role="dialog" aria-modal="true" aria-label="카테고리 슬라이드 보기">
+            <div class="slider-topbar">
+                <div>
+                    <p class="slider-category" id="sliderCategory"></p>
+                    <p class="slider-count" id="sliderCount"></p>
+                </div>
+                <div class="slider-actions">
+                    <button type="button" class="slider-action" id="sliderPrevButton" aria-label="이전 사진">이전</button>
+                    <button type="button" class="slider-action" id="sliderNextButton" aria-label="다음 사진">다음</button>
+                    <button type="button" class="slider-action" id="closeSlider" aria-label="닫기">닫기</button>
+                </div>
+            </div>
+            <div class="slider-stage" id="sliderStage">
+                <img id="sliderImage" alt="">
+                <div class="slider-swipe-hint" id="sliderSwipeHint" aria-hidden="true">
+                    <span class="slider-swipe-line"></span>
+                    <span class="slider-swipe-text">좌우로 밀어서 다음 사진 보기</span>
+                    <span class="slider-swipe-line"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <template id="sectionTemplate">
+        <section class="category-section">
+            <div class="section-head">
+                <div>
+                    <p class="section-label"></p>
+                    <h2></h2>
+                </div>
+                <div class="section-side">
+                    <p class="section-count"></p>
+                    <button type="button" class="section-slider-button">슬라이드로 보기</button>
+                </div>
+            </div>
+            <div class="shot-grid"></div>
+        </section>
+    </template>
+
+    <template id="cardTemplate">
+        <article class="shot-card">
+            <button type="button" class="shot-button">
+                <figure class="shot-figure">
+                    <img loading="lazy" decoding="async" alt="">
+                    <span class="shot-badge"></span>
+                </figure>
+            </button>
+        </article>
+    </template>
+
+    <script src="./script.js"></script>
+</body>
+</html>
