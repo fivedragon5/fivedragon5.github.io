@@ -1,0 +1,266 @@
+/* PDF export sheet for hgy/pdf.html.
+   Keep hgy/index.html untouched; this file only reshapes the copied page for print. */
+
+:root {
+  --pdf-ink: #181816;
+  --pdf-muted: #575650;
+  --pdf-soft: #f5f2ea;
+  --pdf-line: #d8d2c6;
+  --pdf-accent: #6f6659;
+  --pdf-page-gutter: 56px;
+  --pdf-print-gutter: 18mm;
+  --radius: 8px;
+  --shadow: none;
+  --shadow-hover: none;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body.pdf-page {
+  background: #f4f1e9;
+  color: var(--pdf-ink);
+  padding: var(--pdf-page-gutter);
+  user-select: text;
+  -webkit-user-select: text;
+  -webkit-touch-callout: default;
+}
+
+.pdf-page .nav {
+  display: none;
+}
+
+.pdf-page .hero {
+  min-height: auto;
+  align-items: flex-start;
+  padding: 76px 56px 44px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, .62), rgba(255, 255, 255, 0) 42%),
+    linear-gradient(180deg, #f7f3ea 0%, #ebe4d7 100%);
+  border-bottom: 1px solid var(--pdf-line);
+}
+
+.pdf-page .hero-inner {
+  max-width: 980px;
+  text-align: left;
+}
+
+.pdf-page .hero-tag,
+.pdf-page .label,
+.pdf-page .chip,
+.pdf-page .kw,
+.pdf-page .tl-badge,
+.pdf-page .proj-tag {
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .56);
+  border-color: rgba(180, 170, 154, .82);
+  color: var(--pdf-accent);
+}
+
+.pdf-page .hero-title {
+  max-width: 760px;
+  font-size: 2.35rem;
+  line-height: 1.26;
+  margin-bottom: 14px;
+}
+
+.pdf-page .hero-sub {
+  margin-bottom: 20px;
+  color: var(--pdf-muted);
+}
+
+.pdf-page .hero-chips {
+  justify-content: flex-start;
+  margin-bottom: 0;
+}
+
+.pdf-page .btn-hero {
+  display: none;
+}
+
+.pdf-page .section {
+  padding: 48px 0;
+}
+
+.pdf-page .container {
+  max-width: 980px;
+  padding: 0 56px;
+}
+
+.pdf-page .section-header {
+  margin-bottom: 22px;
+}
+
+.pdf-page .section-header h2 {
+  font-size: 1.45rem;
+  line-height: 1.32;
+}
+
+.pdf-page .section-header p,
+.pdf-page .about-text p,
+.pdf-page .tl-desc,
+.pdf-page .proj-desc,
+.pdf-page .strength-card p {
+  color: var(--pdf-muted);
+}
+
+.pdf-page #about,
+.pdf-page #pivot,
+.pdf-page #experience,
+.pdf-page #projects,
+.pdf-page #skills {
+  background: #f4f1e9;
+}
+
+.pdf-page .about-grid {
+  grid-template-columns: 1.08fr .92fr;
+  gap: 34px;
+}
+
+.pdf-page .card {
+  background: rgba(255, 255, 255, .46);
+  border-color: rgba(185, 176, 160, .78);
+  border-radius: 8px;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  padding: 20px;
+}
+
+.pdf-page .card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.pdf-page .card-grid-3 {
+  gap: 14px;
+}
+
+.pdf-page .card-grid-2 {
+  gap: 14px;
+}
+
+.pdf-page .timeline {
+  gap: 18px;
+}
+
+.pdf-page .timeline::before {
+  display: none;
+}
+
+.pdf-page .tl-left {
+  padding-top: 22px;
+}
+
+.pdf-page .tl-period,
+.pdf-page .tl-role,
+.pdf-page .tl-tags span,
+.pdf-page .metric,
+.pdf-page .proj-sub {
+  color: var(--pdf-muted);
+}
+
+.pdf-page .tl-tags,
+.pdf-page .tl-metrics {
+  gap: 8px;
+}
+
+.pdf-page .tl-metrics {
+  padding-top: 10px;
+}
+
+.pdf-page .proj-flow {
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .38);
+}
+
+.pdf-page .proj-result {
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .42);
+}
+
+@page {
+  size: A4;
+  margin: 22mm 12mm 18mm;
+}
+
+@media print {
+  html,
+  body.pdf-page {
+    background: #f4f1e9 !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  body.pdf-page {
+    font-size: 10.4pt;
+    line-height: 1.48;
+    padding: 0;
+  }
+
+  .pdf-page a {
+    text-decoration: none;
+  }
+
+  .pdf-page .hero {
+    padding: 6mm 0 10mm;
+  }
+
+  .pdf-page .hero-title {
+    font-size: 22pt;
+    line-height: 1.22;
+  }
+
+  .pdf-page .hero-sub {
+    font-size: 10.2pt;
+  }
+
+  .pdf-page .container,
+  .pdf-page .hero-inner {
+    max-width: none;
+    padding-right: var(--pdf-print-gutter);
+    padding-left: var(--pdf-print-gutter);
+  }
+
+  .pdf-page .section {
+    padding: 10mm 0;
+  }
+
+  .pdf-page .section-header {
+    margin-bottom: 4mm;
+  }
+
+  .pdf-page .section-header h2 {
+    font-size: 15pt;
+  }
+
+  .pdf-page .label,
+  .pdf-page .hero-tag {
+    font-size: 7pt;
+    padding: 2.5pt 7pt;
+  }
+
+  .pdf-page .card {
+    padding: 12pt;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .pdf-page .tl-item {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .pdf-page .fade-up {
+    opacity: 1;
+    transform: none;
+  }
+
+}
+
+@media (max-width: 860px) {
+  .pdf-page .hero-inner {
+    max-width: 680px;
+  }
+}
